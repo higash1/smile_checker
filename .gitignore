@@ -1,1 +1,2 @@
 shared_dir/haarcascade_smile.xml
+shared_dir/.*

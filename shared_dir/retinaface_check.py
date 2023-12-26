@@ -6,7 +6,7 @@ import warnings
 
 warnings.simplefilter('ignore',UserWarning)
 
-pic_path = './real_smile'
+# pic_path = './real_smile'
 # baby_list = sorted([i for i in os.listdir(pic_path) if '.JPG' in i])
 baby_list = ['./baby_picture/sample.jpg']
 
@@ -18,7 +18,8 @@ smile_count = 0
 for i,img_path in enumerate(baby_list):
     print(img_path,'START')
     
-    img = cv2.imread(os.path.join(pic_path,img_path))
+    # img = cv2.imread(os.path.join(pic_path,img_path))
+    img = cv2.imread(img_path)
     rgb_img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
@@ -45,7 +46,7 @@ for i,img_path in enumerate(baby_list):
                 # cv2.rectangle(img,(int(annotate['bbox'][0]) + int(sx),int(annotate['bbox'][1]) + int(sy)),(int(annotate['bbox'][2]) + int(sx) + int(sw/2),int(annotate['bbox'][3]) + int(sy) + int(sh/2)),(255, 0, 0),2)#red
                 cv2.circle(img,(int(annotate['bbox'][0]+sx+sw/2),int(annotate['bbox'][1]+sy+sh/2)),int(sw/2),(255, 0, 0),2)#red
         if smile_ok:
-            cv2.imwrite(os.path.join('./result',f'{img_path}'),img)
+            cv2.imwrite('./result/sample.png',img)
             print(img_path,'COMPLETE')
 
 print(f"{smile_count}")    

@@ -1,37 +1,33 @@
-# PyTorch_Docker
+# smile_checker
+spresenseを利用して取得した画像の笑顔を認識するためのdocker
 
-## 🚂🚃🚄🚅🚈🚝🚞🚋🚟
+※installやsetup足りていない場合があります。issueにてお知らせいただけると幸いです。
 
-## セットアップ
-
-### 1. 新たにターミナルを立ち上げて次のコマンドでこのリポジトリをクローン（ダウンロード）してください
+### setup
 ```sh
-git clone http://git-docker.tasakilab:5051/git/shirai/PyTorch_Docker.git
+cd ~/smile_checker
+mkdir shared_dir
+./docker/build-docker.sh
 ```
-### 2. 次のコマンドでshared_dirを作ります
+### docker run
 ```sh
-mkdir PyTorch_Docker/shared_dir
+./docker/run-docker.sh
 ```
-### 3. 次のコマンドでDockerイメージをビルドしてください（時間がかかります）
+### Installing the face detection model
 ```sh
-./PyTorch_Docker/docker/build-docker.sh
+pip install -U retinaface_pytorch
+pip install -r requirements.txt
 ```
 
-|オプション |パラメータ |説明                      |既定値   |
-|-----------|:---------:|--------------------------|:-------:|
-|`-h`       |なし       |ヘルプを表示              |なし     |
-|`-p`       |VERSION    |PyTorchのバージョン       |1.7.1    |
-|`-c`       |VERSION    |CUDAのバージョン          |11.0     |
-|`-d`       |VERSION    |cuDNNのバージョン         |8        |
-|`-f`       |FLAVOR     |PyTorchのフレーバー       |devel    |
+※retinafaceが動かない、またはinstallできない場合はpipのupdateおよびopencv関連のモジュールの更新を行ってください
 
-### 4. ビルドに成功したら次のコマンドでDockerコンテナを起動することができます
-```sh
-./PyTorch_Docker/docker/run-docker.sh
-```
-**エラーが出た場合はイメージを削除しPyTorchのバージョンを下げてもう一度 2. を実行してみてください**
+### download smile detection model (opencv cascade model)
+[smile_detection_model](https://github.com/Aparajit-Garg/Face-and-smile-detection)
 
-### 5. 次のコマンドで別のターミナルから起動中のコンテナに入ることができます
+### test
 ```sh
-./PyTorch_Docker/docker/exec-docker.sh
+python retinaface_check.py
 ```
+
+### result sample
+![sample](https://github.com/higash1/smile_checker/assets/106146319/9cfc682e-4d94-4dca-ae2f-278fc5a8401c)
